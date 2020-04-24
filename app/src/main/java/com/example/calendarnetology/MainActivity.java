@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private String mStartDateTxt;
     private long mEndDate;
     private String mEndDateTxt;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,11 +47,11 @@ public class MainActivity extends AppCompatActivity {
 
         mStartDateCalendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
-            public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2) {
-                mStartDateTxt = i+"-"+i1+"-"+i2;
-                mChooseStartDate.setText("Дата-время старта задачи: " + mStartDateTxt);
+            public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int month, int dayOfMonth) {
+                mStartDateTxt = year + "-" + month + "-" + dayOfMonth;
+                mChooseStartDate.setText(getString(R.string.start) + mStartDateTxt);
                 GregorianCalendar gregorianCalendar = new GregorianCalendar();
-                gregorianCalendar.set(i, i1, i2);
+                gregorianCalendar.set(year, month, dayOfMonth);
                 mStartDate = gregorianCalendar.getTimeInMillis();
                 calendarView.setVisibility(View.GONE);
             }
@@ -59,8 +60,8 @@ public class MainActivity extends AppCompatActivity {
         mEndtDateCalendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2) {
-                mEndDateTxt = i+"-"+i1+"-"+i2;
-                mChooseEndDate.setText("Дата-время окончания задачи: " + mEndDateTxt);
+                mEndDateTxt = i + "-" + i1 + "-" + i2;
+                mChooseEndDate.setText(getString(R.string.end) + mEndDateTxt);
                 GregorianCalendar gregorianCalendar = new GregorianCalendar();
                 gregorianCalendar.set(i, i1, i2);
                 mEndDate = gregorianCalendar.getTimeInMillis();
@@ -71,16 +72,17 @@ public class MainActivity extends AppCompatActivity {
         mBtnOK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (mStartDate > mEndDate){
-                    Toast.makeText(MainActivity.this, "Ошибка", Toast.LENGTH_LONG).show();
-                    mChooseStartDate.setText("Дата-время старта задачи:");
-                    mChooseEndDate.setText("Дата-время окончания задачи:");
+                if (mStartDate > mEndDate) {
+                    Toast.makeText(MainActivity.this, R.string.error, Toast.LENGTH_LONG).show();
+                    mChooseStartDate.setText(getString(R.string.start));
+                    mChooseEndDate.setText(getString(R.string.end));
                 } else {
-                    Toast.makeText(MainActivity.this, "старт: " + mStartDateTxt + " окончаниe: " + mEndDateTxt, Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, getString(R.string.the_start) + mStartDateTxt + getString(R.string.the_end) + mEndDateTxt, Toast.LENGTH_LONG).show();
                 }
             }
         });
     }
+
     private void initViews() {
         mChooseStartDate = findViewById(R.id.chooseStartDate);
         mChooseEndDate = findViewById(R.id.chooseEndDate);

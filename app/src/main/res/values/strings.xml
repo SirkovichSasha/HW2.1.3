@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">CalendarNetology</string>
+    <string name="start">\"Дата-время старта задачи: \"</string>
+    <string name="end">\"Дата-время окончания задачи: \"</string>
+    <string name="error">Ошибка</string>
+    <string name="the_start">\"старт: \"</string>
+    <string name="the_end">\" окончаниe: \"</string>
 </resources>
